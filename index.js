@@ -1,10 +1,13 @@
 const express = require("express")
-const app = express();
 const cors = require("cors");
-const port = process.env.APP_PORT || 5001 ;
+const port = process.env.APP_PORT || 9001 ;
 require("dotenv").config();
 const dbConfig = require("./src/config/dbConfig");
 dbConfig();
+
+const authRoute = require("./routes/authRoute");
+
+const app = express();
 
 //basic middleware
 app.use(express.json());
@@ -27,3 +30,6 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
     console.log(`Next-IMDb app is running on:  http://localhost:${port}`);
 })
+
+// routes
+app.use(authRoute);
